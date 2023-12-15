@@ -1,4 +1,4 @@
-\documentclass[]{acmart}
+\documentclass[authorversion,nonacm]{acmart}
 
 %\usepackage[hashEnumerators,smartEllipses]{markdown}
 \usepackage{pgfplots, pgfplotstable}
@@ -18,6 +18,8 @@
 \pgfplotsset{compat=1.17}
 
 \renewcommand{\boxed}[1]{\text{\fboxsep=.2em\fbox{#1}}}
+
+\settopmatter{printacmref=false}
 
 \definecolor{darksky}{rgb}{0.4,0.4,1}
 \definecolor{skyblue}{rgb}{0.25,0.78,0.96}
@@ -169,12 +171,6 @@
 \title{On the Design and Use of Distractors in Parsons Problems}
 
 \author{David H. Smith IV}
-\affiliation{%
-  \institution{University of Illinois}
-  \city{Urbana}
-  \state{IL}
-\country{USA}}
-\email{dhsmith2@illinois.edu}
 
 %1-2 page intro  (why should I care?)
 %2-3 pages background / related work  (have you done your homework?)
@@ -182,27 +178,9 @@
 %4-5 pages on future work  (what are you proposing to do?  why?  how?)
 %1 page on schedule  (is your schedule realistic?  will you have done enough to earn a Ph.D.?)
 
-\begin{abstract}
-
-    In this paper, we make three contributions related to the selection and use
-    of distractors (lines of code reflecting common errors or misconceptions)
-    in Parsons problems.  First, we demonstrate a process by which
-    templates for creating distractors can be selected through the analysis of
-    student submissions to short answer questions. Second, we describe the
-    creation of a tool that uses these templates to automatically generate
-    distractors for novel problems. Third, we perform a preliminary analysis
-    of how the presence of distractors impacts performance, problem solving
-    efficiency, and item discrimination when used in summative assessments. Our
-    results suggest that distractors should not be used in summative assessments
-    because they significantly increase the problem's completion time without a
-    significant increase in problem discrimination.
-
-\end{abstract}
-
-
 \begin{teaserfigure}
     \centering
-    \includegraphics[width=0.49\textwidth]{imgs/parsons_question.png}
+    \includegraphics[width=0.70\textwidth]{imgs/parsons.png}
     \caption{Examples of Parsons Problems with Distractors on PrairieLearn}
 \end{teaserfigure}
 
@@ -211,10 +189,32 @@
 \section{Extended Abstract}
 
 % Very Brief intro to parsons problems.
-
-% My Contributions
+Since their introduction by \citet{parsons2006parson} distractors have become
+common place in studies investigating Parsons problems. However, to date, there
+have been a limited number of studies investigating the utility of including
+distractors in Parsons problems at all.  In filling this gap, my work thus far
+has focused on investigating methods of developing distractors and the impact
+of distractors in Parsons problems in a summative context. I first introduce a
+method of creating distractor templates from analysis of code writing errors
+and using those templates to support the autogeneration of distractors~\cite{}.
+I am also currently in the process of integrating this system of distractor
+autogeneration into the CodeSpec platform~\cite{}. Since the creation of this
+tool, I have conducted a series of studies comparing Parsons problems on exams
+that include distractors to those that do not and comparing the use of jumbled
+and visually grouped distractors~\cite{}. Furthermore, I have added the ability
+to associate feedback with distractors in PrairieLearn. This is done towards
+supporting future work in investigating the utility of distractors in formative
+activities.
 
 % My proposed future work
+My proposed future work can be divide into three main areas of focus: (1)
+performing further analysis of common errors made by students in code
+writing exercises towards creating a taxonomy of distractors, (2) extending
+my prior analysis investigating the impact of using distractors in summative
+contexts, and (3) investigating the impacts of distractors in formative contexts.
+In doing so, I hope to provide instructors and curriculum designers with a
+better understanding of how distractors can be used in designing assessments and
+learning activities alike.
 
 \section{Introduction}
 
@@ -229,19 +229,18 @@ original and continue to be included in many studies involving Parsons
 problems~\cite{du2020review}.  
 
 % When are distractors used in Parsons and why?
-One of the commonly cited principles for using distractors in Parsons problems
-is that those distractors should reflect common programming errors and
+Distractors are often design to reflect common programming errors and
 misconceptions~\cite{du2020review, parsons2006parson}.  Much like with
 multiple-choice questions, distractor blocks are added to Parsons problems with
 the intention of distracting students with plausible, but incorrect
 alternatives.  When included on homework assignments the purpose of distractors
-is to correct common errors and misconceptions students may have when writing
-programs without having them deal with the full cognitive load of writing a
-program from scratch~\cite{ericson2017solving, haynes2021problem}.  When
-included on exams, their purpose shifts to providing an additional dimension by
-which to discriminate based on student knowledge. As such, the selection of
-distractors that accurately reflect common errors is important when pursuing
-either of these goals. 
+is to illustrate and correct common errors and misconceptions students may have
+when writing programs without having them deal with the full cognitive load of
+writing a program from scratch~\cite{ericson2017solving, haynes2021problem}.
+When included on exams, their purpose shifts to providing an additional
+dimension by which to discriminate based on student knowledge. As such, the
+selection of distractors that accurately reflect common errors is important
+when pursuing either of these goals. 
 
 % Where do distractors come from in the context of MC
 The design and impact of distractors with respect to multiple-choice questions
@@ -270,18 +269,6 @@ these responses can be collected at scale.  For example,
 on Amazon's Mechanical Turk was a useful method by which to collect distractors
 for multiple-choice questions. 
 
-Towards extending the practice of leveraging errors made on short answer
-responses, this paper presents a process of analyzing such questions and
-automating the construction of distractors sets for Parsons problems.
-Section~\ref{sec:distractorset} describes the process by which common errors
-were analyzed from an introductory Python course. Section~\ref{sec:tool}
-describes the system used to automatically generate distractor sets from a
-solution's source code.  Finally, Section~\ref{sec:results} provides
-preliminary comparison of the difficulty and item discrimination of problems
-with distractors compared to those without on a large introductory Python
-course's final exam.
-
-
 \section{Background}
 
 \subsection{Parsons Problems}
@@ -308,70 +295,42 @@ have gained traction given their positive reception among students and
 instructors alike~\cite{ericson2015analysis, ericson2016identifying}.
 
 % The role of Parsons problems in instruction
-Work done by the BRACElet project has suggested that skills used in the solving
-of Parsons problems occupy a middle position in their proposed programming
-skills hierarchy; specifically, between the more advanced skill of code writing
-and more rudimentary skills like code tracing \cite{whalley2007many,
-lopez2008relationships, venables2009closer}. These findings suggest that Parsons
-problems are an important pedagogical device within the progression towards
-teaching students to writing code. Though these findings align with the original
-purpose of Parsons problems the statistical methods utilized and size of the
-data set were insufficient to falsify alternative skill hierarchies which leaves
-the skill hierarchy they reported somewhat
-dubious~\cite{fowler2022reevaluating}.  Despite the limitations of the proposed
-skill hierarchy the concept of an optimal skill hierarchy is still of
-pedagogical interest and the role of Parsons problems in facilitating
-progression through it are still of pedagogical interest due to the benefits
-found by prior work. 
+In terms of pedagogical utility, the ability of students to solve Parsons
+problems has been found to be highly correlated with other skills such as code
+writing and tracing suggesting they may employ many of the same
+skills~\cite{whalley2007many, lopez2008relationships, venables2009closer,
+fowler2022reevaluating}.  \citet{ericson2017solving} compared Parsons problems
+that require students to correctly indent blocks, code fixing, and code writing
+problems on the basis of efficiency, effectiveness, and cognitive load.
+Efficiency was operationalized as the amount of time needed to complete the
+problem, effectiveness was the increase in performance between a pre and post
+test after completing the set of treatment problems, and cognitive load was
+measured using the CS Cognitive Load Component
+Survey~\cite{morrison2014measuring}. Their findings indicate that Parsons
+problems are both more efficient and require less cognitive load while still
+achieving the same learning benefits compared to practicing with code writing
+and code fixing exercises.
 
-\citet{ericson2017solving} compared Parsons problems that require students to
-correctly indent blocks, code fixing, and code writing problems on the basis of
-efficiency, effectiveness, and cognitive load. Efficiency was operationalized
-as the amount of time needed to complete the problem, effectiveness was the
-increase in performance between a pre and post test after completing the set of
-treatment problems, and cognitive load was measured using the CS Cognitive Load
-Component Survey~\cite{morrison2014measuring}. Their findings indicate that
-Parsons problems are both more efficient and require less cognitive load while
-still achieving the same learning benefits compared to practicing with code
-writing and code fixing exercises.
-
-
-\subsection{Variations of Parsons Problems}
-
-Since their inception, many variations of Parsons problems have
-been developed and evaluated. These investigations have primarily focused on
-increasing efficiency and reducing cognitive load while maximizing, or at least
-maintaining, the learning gains that Parsons problems have been demonstrated to
-achieve~\cite{du2020review}.
+\subsection{Approaches to Including Distractors}
 
 There are two main ways in which distractors are included in Parsons problems.
 The original method simply randomly placed distractors in with correct blocks
 and left it to the students to distinguish which they should use, a process 
-that would come to be known as jumbled distractors.
+that would come to be known as \textit{jumbled distractors}.
 Prior work has found that including jumbled distractors leads to a decrease in
 efficiency and completion while increasing cognitive
 load~\cite{garner2007exploration, harms2016distractors} and increasing the
 number of distractors made problems more difficult~\cite{ericson2015analysis}.
-A recent alternative to jumbled distractors involves visually grouping the
-distractor(s) with the correct block of code they are associated with.  Some
-efficiency can be regained by using paired distractors, where the distractors
-and the correct line of code are grouped in some manner with the intention of
-making the selection more explicit~\cite{denny2008evaluating}.  
+An alternative involves visually grouping distractors with their correct alternative.
+When each group includes a single correct block and a single distractor this is commonly
+refered to as ``visually paired distractors''~\cite{} whereas when each correct block
+has more than one distractor associated with it this is refered to as
+``visually grouped''~\cite{}.  The purpose of visually grouping and visually pairing
+is to improve problem efficiency by making the selection between a correct block 
+and its distractors more explicit~\cite{denny2008evaluating}.
 
-In addition to distractors, Parsons problems can be designed to be insensitive
-to indentation for languages like C and Java, commonly referred to as
-one-dimensional, or sensitive to it for languages like Python, also referred to
-as two-dimensional~\cite{ihantola2011two}.  Prior work indicates that
-two-dimensional problems are more difficult than their one dimensional
-counterparts~\cite{ihantola2010open}. 
-
-\citet{weinman2021improving} has investigated the usage of ``Faded Parsons
-Problems''. These differ from traditional Parsons problems in that they do not
-consist of static blocks of code. Rather, each block contains some skeleton
-code with entry boxes for certain values and symbols left to be filled in by
-the student. 
-
-Finally, recent work has investigated the utility of adaptive Parsons, where, 
+Beyond the method by which distractors are included 
+recent work has investigated the utility of adaptive Parsons, where, 
 as students submit incorrect responses, distractors are eliminated and correct
 blocks are combined. The purpose of these problems is to progressively morph
 the problem to fit the students current ability
@@ -380,22 +339,39 @@ this is to keep the student in the zone of proximal
 development~\cite{vygotsky1978mind}, where students are challenged but still
 able to progress rather than stagnating and becoming frustrated. 
 
-\subsection{Role of Distractors}
+\subsection{Role of Distractors in Parsons Problems as Test Items}
 
 % Tee up future work 
 Despite the initial purpose of Parsons problems as a type of drilling exercise,
-they have also been used as a tool for examination~\cite{
-lister2010naturally, lopez2008relationships}.  \citet{denny2008evaluating}
-investigated the correlations between Parsons, code writing, and tracing
-problems on an assessment and found a particularly high correlation between
-students scores on Parsons and code writing questions, suggesting they measure
-similar skills.  Additionally, they suggest that the errors made in a Parsons
-problem provide a more explicit indication of the concepts with which students
-might be struggling. However, to the best of our knowledge, no studies have
-investigated the effect of distractors on overall item discrimination.
+they have also been used as a tool for examination~\cite{ lister2010naturally,
+lopez2008relationships}.  \citet{denny2008evaluating} investigated the
+correlations between Parsons, code writing, and tracing problems on an
+assessment and found a particularly high correlation between students scores on
+Parsons and code writing questions, suggesting they measure similar skills.
+Additionally, their interviews uncovered several recommendations for designing
+Parsons problems as exam questions.  First, each line should have two explicit
+options where one is correct and the other is a distractor so as to avoid
+extraneous cognitive load. Next, labeling each line with a letter and having
+students write the letters in their selected order lead to accidental errors
+(e.g., copying the wrong letter) and extraneous cognitive load  when tracking
+letter-line mappings. Having students write the lines of code they select is
+recommended as an alternative. Finally, cues can be embedded in questions, such
+as the placement of brackets or variable names, to help reduce the problem's
+difficulty by hinting at the correct solution's structure.  
+
+It is worth noting that all of the previously mentioned studies took place
+in the context of paper-based assessments which may alter some of the
+considerations presented by previous studies when considering computer-based
+exams. For example, the recommendations by \citet{denny2008evaluating} that
+students write the responses rather than using letter tags are no longer a
+consideration when students can drag and drop blocks on a computer.
+Furthermore, the rubrics developed for code writing and Parsons problems might
+be altered for automatic grading by using test-cases~\cite{
+eddelbuettel2020r} and distance from the correct
+solution~\cite{poulsen2022efficient}, respectively. 
 
 % Why good distractors matter
-The concept of ``desirable difficulties'' has long been a consideration when
+The concept of ``desirable difficulties'' is a major consideration when
 constructing test-items and learning activities~\cite{bjork2011making,
 bjork2014multiple}.  In the context of multiple-choice questions on exams, the
 selection of distractors can impact the retrieval processes necessary to solve
@@ -408,41 +384,41 @@ constructing questions that effectively discriminate between high and low
 performing students, but they may also play a role in maximizing a given item's
 learning potential.
 
-\subsubsection{Learning Gains}
+\subsection{Distractors in Multiple-Choice Questions vs Parsons Problems}
 
-\subsubsection{As an Exam Item}
+Distractors have been most often used and investigated in the context of
+multiple-choice and true-false questions where they play a significant role in
+determining item quality~\cite{gierl2017developing}. It is often recommended
+that instructors include short answer questions on their assessments and use
+common incorrect responses to create distractors for future multiple choice
+questions~\cite{briggs2006diagnostic}.  Distractors might also come from domain
+experts who design distractors to test for specific
+misconceptions~\cite{guttman1967systematic}. In general, three distractors and one correct response are
+recommended as increasing to three or four has little impact on item difficulty,
+discrimination, and validity but a significant impact on the time it takes to
+create questions and students' efficiency in answering them~\cite{vyas2008multiple}.
 
-\citet{denny2008evaluating} performed a mixed-methods study to identify the
-efficacy of Parsons problems on paper-based exams. Their interviews uncovered
-several recommendations for designing Parsons problems as exam questions. First, each line should
-have two explicit options where one is correct and the other is a distractor so
-as to avoid extraneous cognitive load. Next, labeling each line with a letter
-and having students write the letters in their selected order lead to
-accidental errors (e.g., copying the wrong letter) and extraneous cognitive load  when
-tracking letter-line mappings. Having students write the lines of code they
-select is recommended as an alternative. Finally, cues can be embedded in
-questions, such as the placement 
-of brackets or variable names, to help reduce the problem's difficulty by hinting at the correct
-solution's structure.
-Additionally this study as well as those by
-\citet{lopez2008relationships} and \citet{lister2010naturally}, found strong
-correlations between performance on Parsons problems and code writing exercises
-suggesting they can be used to measure similar constructs. However, they note
-that Parsons problems may offer additional affordances by narrowing the scope of
-possible responses and thus highlighting specific difficulties a student or
-class might be having.
+Once distractors are created and administered to students their quality can be
+assessed in a variety of ways. First, the item can be taken as a whole and its
+discrimination and difficulty can be calculated~\cite{mahjabeen2017difficulty}.
+Distractors can then be assessed individually to identify and remove ones that are
+selected significantly less than their counterparts or not at all~\cite{tarrant2009assessment}.  Furthermore, a process known as
+``Differential Distractor Functioning'' can be used to identify if any
+subpopulations are being unfairly disadvantaged by the presence of certain
+distractors~\cite{green1989method}.
 
-It is worth reiterating that all of the previously mentioned studies took place
-in the context of paper-based assessments which may alter some of the
-considerations presented by previous studies when considering computer-based
-exams. For example, the recommendations by \citet{denny2008evaluating} that
-students write the responses rather than using letter tags are no longer a
-consideration when students can drag and drop blocks on a computer.
-Furthermore, the rubrics developed for code writing and Parsons problems might
-be altered for automatic grading by using test-cases~\cite{
-eddelbuettel2020r} and distance from the correct
-solution~\cite{poulsen2022efficient}, respectively. 
-
+Despite being included in Parsons problems since their
+inception~\cite{parsons2006parson}, similar investigations into how to
+effectively create, use, and audit distractors in this context
+are limited. \citet{du2020review} suggest in their literature review that, like
+multiple choice questions, distractors for Parsons problems should be created to
+reflect common misconceptions and errors. Distractors have been investigated in
+formative contexts with \citet{harms2016distractors} findings that they decrease
+efficiency and success rates while showing no impact on learning compared to
+students who practiced problems that did not include distractors. Given these
+limited investigations, it remains largely unknown what the impact of distractors
+are when used in exam questions and what the best practices are for creating
+distractors.
 
 
 \subsection{Classical Test Theory and IRT}
@@ -498,73 +474,40 @@ referenced as being one of the main indicators of item quality.
 However, item difficultly and discrimination go hand in hand. If an item is
 so hard that everyone gets it incorrect or so easy that everyone gets it correct then that item is unlikely to have high discrimination. For general tests, midrange item difficulties (0.3-0.7)
 are often recommended to increase the possible range of scores the item can
-produce, though this does vary based on the item type and scoring
-method~\cite{lord1953application, ebel1972essentials, hotiu2006relationship}.
-
-
-\subsection{Distractors in Multiple-Choice Questions vs Parsons Problems}
-
-Distractors have been most often used and investigated in the context of
-multiple-choice and true-false questions where they play a significant role in
-determining item quality~\cite{gierl2017developing}. It is often recommended
-that instructors include short answer questions on their assessments and use
-common incorrect responses to create distractors for future multiple choice
-questions~\cite{briggs2006diagnostic}.  Distractors might also come from domain
-experts who design distractors to test for specific
-misconceptions~\cite{guttman1967systematic}. In general, three distractors and one correct response are
-recommended as increasing to three or four has little impact on item difficulty,
-discrimination, and validity but a significant impact on the time it takes to
-create questions and students' efficiency in answering them~\cite{vyas2008multiple}.
-
-Once distractors are created and administered to students their quality can be
-assessed in a variety of ways. First, the item can be taken as a whole and its
-discrimination and difficulty can be calculated~\cite{mahjabeen2017difficulty}.
-Distractors can then be assessed individually to identify and remove ones that are
-selected significantly less than their counterparts or not at all~\cite{tarrant2009assessment}.  Furthermore, a process known as
-``Differential Distractor Functioning'' can be used to identify if any
-subpopulations are being unfairly disadvantaged by the presence of certain
-distractors~\cite{green1989method}.
-
-Despite being included in Parsons problems since their
-inception~\cite{parsons2006parson}, similar investigations into how to
-effectively create, use, and audit distractors in this context
-are limited. \citet{du2020review} suggest in their literature review that, like
-multiple choice questions, distractors for Parsons problems should be created to
-reflect common misconceptions and errors. Distractors have been investigated in
-formative contexts with \citet{harms2016distractors} findings that they decrease
-efficiency and success rates while showing no impact on learning compared to
-students who practiced problems that did not include distractors. Given these
-limited investigations, it remains largely unknown what the impact of distractors
-are when used in exam questions and what the best practices are for creating
-distractors.
+produce~\cite{lord1953application, ebel1972essentials, hotiu2006relationship}.
+%, though this does vary based on the item type and scoring method TODO: double check this statement with the above citations.
 
 \section{Prior Work}
 
-\subsection{Prior Work: Creation of Distractors and Pilot Study}\label{sec:creation}
+\subsection{Creation of Distractors and Pilot Study}\label{sec:creation}
 
 \paragraph{Objectives:} In investigating the utility of distractors it became 
 apparent that developing a systematic process of creating distractors and 
-quickly authoring questions that utilize them would be required. As an initial 
-step in adressing this gap we make three contributions related to the
-selection and use of distractors (lines of code reflecting common errors or
-misconceptions) in Parsons problems. First, we demonstrate a process by which
-templates for creating distractors can be selected through the analysis of
-student submissions to short answer questions. Second, we describe the creation
-of a tool that uses these templates to automatically generate distractors for
-novel problems. Third, we perform a preliminary analysis of how the presence of
-distractors impacts performance, problem solving efficiency, and item
-discrimination when used in summative assessments. Our results suggest that
-distractors should not be used in summative assessments because they
-significantly increase the problem's completion time without a significant
-increase in problem discrimination.
+quickly authoring questions that utilize them would be a required first step.
+As an initial step in addressing this gap we make three contributions related to
+the selection and use of distractors in Parsons problems. First, we demonstrate
+a process by which templates for creating distractors can be selected through
+the analysis of student submissions to short answer questions. Second, we
+describe the creation of a tool that uses these templates to automatically
+generate distractors for novel problems. Third, we perform a preliminary
+analysis of how the presence of distractors in Parsons problems being used on
+summative assessments impacts: (1) performance, (2) the amount of time students
+spend working on the problems, and (3) item quality as measured through
+Classical Test Theory's operationalization of item-discrimination.
 
 \paragraph{Methodology:}
 
 \begin{figure}
   \centering
-  \includegraphics{}
-  \caption{An example of a stement question from the course.} 
-  \label{fig:}
+  \includegraphics[width=300px]{imgs/pl-question.png}
+  \caption{
+    An example of a statement question from the course. (1) Elements of these
+    questions (e.g., variables, values) are randomized, (2) students are
+    expected to write a single line of code using those variables and values to
+    accomplish a task, and (3) students can generate new variants of the
+    questions allowing for more practice.
+  } 
+  \label{fig:append-stmnt}
 \end{figure}
 
 The construction of our sets of distactor templates begins with a set of
@@ -574,57 +517,101 @@ existing list (Figure~\ref{fig:append-stmnt}). Responses to these questions are
 much simpler to analyze than typical code writing solutions as they restrict
 possible misconceptions and errors to the one particular concept covered by a
 given question.  In total, 42 of these questions have been deployed thus far in
-the course from which we draw our set of submissions on both homeworks and exams
-with the questions covering the majority of fundamental statements needed to
-write larger pieces of code in the Python course. To collect a set of these 
+the course from which we draw our set of submissions on both homework and exams
+with the questions covering the majority of operations relating to the manipuation of 
+Pythons builtin data structures. To collect a set of these 
 errors for each of these operations we parse all errors into abstract syntax
 tree representations of the code. From this, we then engage in an iterative 
 process of manually looking for similar groups of errors, constructing a 
 partial AST that characterizes that group of error, and filtering those errors
-from the corpus of responses. This process is repeated until no substantial
-groups of similar, plausiable errors exist
+from the corpus of responses. This process is repeated until no more groups of
+errors can be identified.  
 
 \begin{figure}[t]
     \centering
-    \resizebox{0.95\columnwidth}{!}{
-        %\input{./imgs/workflow.tex}
+    \resizebox{0.5\textwidth}{!}{
+        \input{./imgs/workflow.tex}
     }
     \caption{Transforming \texttt{numlst.append(item)} into a set of distractors.}
     \label{fig:appendastmatchesed}
 \end{figure}
 
 To enable the rapid authoring of questions that include distrators, we also 
-put for a process of autogenerating distractors for a correct piece of code 
-from the errors we discovered through the previously mentioned analysis process.
-The process begins by constructing partial ASTs for the correct form of each of
-the statements for which sets of distractor templates were constructed.  For
-example, if we want to support creating distractors for the append statement we
-would construct a partial AST for \texttt{\boxed{1}.append(\boxed{2})}.  As
-shown in Figure~\ref{fig:appendastmatchesed}, if a line of code is then entered
-that matches this partial AST (e.g., \texttt{numlst.append(item)}) that match
-can (A) be identified and (B) the set of distractor templates associated with
-the matched statement can be retrieved. The final step (C) involves extracting
-and unparsing the subtrees from the original line of code's AST that are
-occupied by wildcards in the partial AST. These subtrees represent the values
-that will be placed into their respective positions in the distractor templates
-in order to generate the final set of distractors.
+developed a process of autogenerating distractors for a given, correct piece of code.
+This is done by leveraging the errors we discovered through the previously
+mentioned analysis process.  The process begins by one again constructing
+partial ASTs for the correct form of each of the statements for which sets of
+distractor templates were constructed.  For example, if we want to support
+creating distractors for the append statement we would construct a partial AST
+for \texttt{\boxed{1}.append(\boxed{2})}.  As shown in
+Figure~\ref{fig:appendastmatchesed}, if a line of code is then entered that
+matches this partial AST (e.g., \texttt{numlst.append(item)}) that match can
+(A) be identified and (B) the set of distractor templates associated with the
+matched statement can be retrieved. The final step (C) involves extracting and
+unparsing the subtrees from the original line of code's AST that are occupied
+by wildcards in the partial AST. These subtrees represent the values that will
+be placed into their respective positions in the distractor templates in order
+to generate the final set of distractors.
 
 With this set of distractors collected and a process for generating them put in
-place, we then performed a pilot study aimed at 
+place, we then performed a pilot study aimed at evaluating the impacts of including
+distractors in Parsons problems on exams. In doing so, we created three pairs of items
+were each pair had the same prompt and base solution but one version contained jumbled
+distractors and the other did not. These questions were then randomly assigned to
+students on a final exam in a large, introductory Python course.  We then
+evaluated these items using the following metrics: 
+\begin{enumerate}
+  \item \textbf{Item-Discrimination:}
+  \item \textbf{Item-Difficulty:}
+  \item \textbf{Duration:}
+\end{enumerate}
 
 \paragraph{Results and Takeaways:}
 
 
-\subection{Prior Work: Evaluating Distractors}\label{sec:eval}
+\subsection{Evaluating Distractors}\label{sec:eval}
 
-\paragraph{Abstract:} As a first step towards evaluating the utility of
-distractors we ran two studies. 
+\paragraph{Abstract:} Since the creation of the tool for 
+
+\paragraph{Methodology:}
 
 \paragraph{Results and Takeaways:}
 
 \section{Limitations of Prior Work}
 
-\section{Proposed Work}
+The primary limitations of the prior work are threefold. First, the distractors 
+being used are limited to those that can be generated from the errors students
+make on statement questions used in the course. These are primarily limited to 
+operations used to manipulate Python's builtin data structures. The results of 
+the prior studies may differ if the distractors used focused on looping and 
+conditional structures. For example, recent work by \citet{} found that 
+blocks in faded (fill in the blank) Parsons problems that required students
+to complete conditionals proved to be the most difficult.
+
+
+Secondly, my prior work on using distractors in summative assessments 
+failed to account for how the number of distractors groups present in a problem
+impacts the results. The majority of problems in the prior studies only
+contained either one or two groups of distractors. It may be the case that
+a larger number of groups with a more diverse set of distractors leads to 
+a more measurable increase in item quality. Conversely, it might also be the
+case that by including more distractors the item experiences more ``slip'' 
+and thus decreases the item quality. In either case, further investigations
+are needed to identify the impacts of increasing the number of distractor 
+groups present in a Parsons problem when used in summative assessments.
+
+
+Finally, my prior work only evaluated the distractors in the context of
+summative assessments. Though prior work has certainly indicated that
+distractors are used in Parsons problems when they are used as an exam item,
+the original intention of Parsons problems was as a exercise
+tool~\cite{parsons2006parson} and is often discussed as being used as a method
+for transitioning students into writing code. As such, though my prior work
+makes tentative steps towards informing the use of distractors in summative
+assessments, it leaves open the door for further investigation into the impact
+of distractors on learning outcomes when used in formative contexts.
+
+\section{Ongoing and Future Work}
 
 In addressing the limitations of the completed work, we propose three research
 directions:
@@ -632,27 +619,34 @@ directions:
   \item[RD1)] Developing a more complete taxonomy of distractors from errors
     students make on statement questions \textbf{and} write code question in support of
     RD1 and RD2 (Section~\ref{sec:taxonomy}).
-  \item[RD2)] Investigating the impact of distractors on learning outcomes in a
-    variety of CS contexts (Section~\ref{sec:impact}).
-  \item[RD3)] A larger study, over multiple semesters, on the impact of distractors on the psychometric
+  \item[RD2)] A larger study, over multiple semesters, on the impact of distractors on the psychometric
     properties of Parsons problems as exam items (Section~\ref{sec:itemquality}).
+  \item[RD3)] Investigating the impact of distractors on learning outcomes in a
+    variety of CS contexts (Section~\ref{sec:impact}).
 \end{enumerate}
 Each of these proposed directions. 
 
 \subsubsection{RD1) Building a Taxonomy of Distractors for Python}\label{sec:taxonomy}
 
 This proposed work stems from the prior work initially described in
-Section~\ref{sec:creation}. In support of the second and third research
-directions, we will extend the analysis performed on statement questions to
+Section~\ref{sec:creation}. We will extend the analysis performed on statement questions to
 include errors and categories of errors students make on code writing activities
 in order to create a more complete set of distractors from which a more
 generalized taxonomy will be built. 
 
-\paragraph{Methodology:}
+\paragraph{Methodology:} In the introductory programming course from which
+the data for the first paper detailed in \ref{sec:creation} was attained
+we have a variety large quantity of historical data. Though in that analysis
+we focused on collecting data from ``statement questions'' we also have a wide
+variety 
 
-\paragraph{Expected Outcomes:}
+\paragraph{Expected Outcomes:} The primary deliverable of this study will be
+the taxonomy and bank of common errors itself. The utility of this is twofold.
+First, it can be used as a guidebook for question authoring. Second, it can be
+used in future anlaysis of distractors to guide how they can be used in
+summative and formative contexts alike.
 
-\paragraph{Timeline:}
+\paragraph{Timeline:} 
 
 
 \subsubsection{RD2) Investigating the Impact of Distractors on Learning Outcomes in CS1}\label{sec:impact}}
@@ -665,12 +659,22 @@ additionally include a series of interviews with students completing the
 problems to determine if the distractors provide any additional benefit to the
 students beyond potential learning gains. 
 
-\paragraph{Methodology:}
+\paragraph{Methodology:} In answering the research questions above we use a mixed 
+methods approach.
+To evaluate the research questions listed above we ran 
+and A-B comparing the learning gains of students practicing with and without distractors.
+In both conditions students began by completing a short reading on a topic they had 
+not encountered in the course, in this case Pythons sorting functions. They then
+completed a survey on their familiarity with the functions they read about prior
+to completing the reading. 
 
-\paragraph{Expected Outcomes:}
+\paragraph{Expected Outcomes:} 
 
-\paragraph{Timeline:}
-
+\paragraph{Timeline:} The data collection for the quantitative portion of this
+study has already been completed and had undergone preliminary analysis. Several 
+interviews have been conducted with students with more currently underway. We are 
+targeting ICER 2024 for the publication of this work.
+ 
 \subsubsection{RD3) An Extended Analysis of the Impact of Distractors on Exam Items }\label{sec:itemquality}
 
 The third and final research direction (Section~\ref{itemquality}) will
@@ -683,11 +687,34 @@ types which can be included. This research direction will involve the developmen
 of a wide variety of Parsons problems with these parameters varied and anlaysing
 the impact of these parameters on the quality of the exam items.
 
-\paragraph{Methodology:}
+\paragraph{Methodology:} In the Fall 2023 semester we repeated the experiments
+comparing Parsons problems with no distractors to those that included jumbled
+and visually grouped distractors. In this iteration of the experiment we
+constructed problems XXX sets of problems. Each set contained four problems
+containing zero to three groups of distractors, respectively. Otherwise, each
+had the same prompt and base solution and only differed in the number of
+distractors which were included. These questions were randomly assigned to
+students on exams and quizzes throughout the semester. We perform CTT and IRT
+analysis to compare the difficulty and discrimination based on the number of
+distractors present in the question. We additionally use the estimated viewing
+times on PrairieLearn to determine how the amount of time students spent on the
+questions differed based on the number of distractors the Parsons problem
+contained. This experiment will be run over the next two semesters in an 
+effort to collect a large and diverse set of problems.
 
-\paragraph{Expected Outcomes:}
 
-\paragraph{Timeline:}
+\paragraph{Expected Outcomes:} One of the primary limitations of the prior work
+is that it didn't pay sufficient attention to how the number of distractor 
+groups in the problem may impact the difficulty, discrimination, and duration
+statistics associated with the problem. The majority of questions from those 
+analysis's 
+
+\paragraph{Current Progress and Timeline:} 
+An initial anlaysis of the Fall 2023 data has been analyzed and submitted to
+ITiCSE 2024. The full analysis will include a replication of these initial
+findings and a more indepth analysis of which distractors were the most
+``distracting'' and how these item statistics differ for items included on
+exams at different points in the semester.
 
 
 

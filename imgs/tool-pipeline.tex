@@ -1,0 +1,15 @@
+\begin{tikzpicture}[node distance=2cm]
+    \node (source) [draw, text width=1cm, align=center] {Source\\ Code};
+    \node (matcher) [draw, right of=exams, xshift=-0.5cm] {Matcher};
+    \node (so) [draw, right of=matcher, yshift=0.5cm, text width=1.5cm, align=center] {Supported\\ Lines};
+    \node (tf) [draw, below of=so, yshift=1.0cm, text width=1.75cm, align=center] {Transformer\\ Funcs};
+    \node (ls) [draw, right of=tf, yshift=0.5cm, text width=1cm, align=center] {Line\\ Selector};
+    \node (ps) [draw, right of=ls, text width=1.5cm, xshift=-0.25cm, align=center] {Paired\\ Distractors};
+
+    \draw [->] (source) -- (matcher);
+    \draw [->] (matcher) -- (so);
+    \draw [->] (matcher) -- (tf);
+    \draw [->] (so) -- (ls);
+    \draw [->] (tf) -- (ls);
+    \draw [->] (ls) -- (ps);
+\end{tikzpicture}
