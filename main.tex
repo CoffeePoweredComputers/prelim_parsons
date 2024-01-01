@@ -192,19 +192,25 @@
 Since their introduction by \citet{parsons2006parson} distractors have become
 common place in studies investigating Parsons problems. However, to date, there
 have been a limited number of studies investigating the utility of including
-distractors in Parsons problems at all.  In filling this gap, my work thus far
+distractors in Parsons problems at all. In filling this gap, my work thus far
 has focused on investigating methods of developing distractors and the impact
 of distractors in Parsons problems in a summative context. I first introduce a
 method of creating distractor templates from analysis of code writing errors
-and using those templates to support the autogeneration of distractors~\cite{}.
-I am also currently in the process of integrating this system of distractor
-autogeneration into the CodeSpec platform~\cite{}. Since the creation of this
-tool, I have conducted a series of studies comparing Parsons problems on exams
-that include distractors to those that do not and comparing the use of jumbled
-and visually grouped distractors~\cite{}. Furthermore, I have added the ability
-to associate feedback with distractors in PrairieLearn. This is done towards
-supporting future work in investigating the utility of distractors in formative
-activities.
+and using those templates to support the autogeneration of
+distractors~\cite{smith2023discovering}. I am also currently in the process of
+integrating this system of distractor autogeneration into the CodeSpec
+platform~\cite{haynes2022codespec}. Since the creation of this tool, I have
+conducted a series of studies comparing Parsons problems on exams that include
+distractors to those that do not. These studies have also included a comparision
+between different methods of including distractors, specifically comparing the
+use of distractors that are jumbled amoungst the other options to distractors
+that are visually grouped with their correct
+alternative~\cite{smith2023investigating, smith2023comparing}.  In support of 
+future work, I have also added the ability to associate feedback with distractors
+in the PrairieLearn assessment platform. This enables investigations into the
+impact of distractors in a formative context where ellucidating the reason a
+distractor is incorrect may contribute to the learning process.
+
 
 % My proposed future work
 My proposed future work can be divide into three main areas of focus: (1)
@@ -213,8 +219,8 @@ writing exercises towards creating a taxonomy of distractors, (2) extending
 my prior analysis investigating the impact of using distractors in summative
 contexts, and (3) investigating the impacts of distractors in formative contexts.
 In doing so, I hope to provide instructors and curriculum designers with a
-better understanding of how distractors can be used in designing assessments and
-learning activities alike.
+better understanding of how distractors can be used in designing summative
+assessments and learning activities alike.
 
 \section{Introduction}
 
@@ -323,11 +329,13 @@ load~\cite{garner2007exploration, harms2016distractors} and increasing the
 number of distractors made problems more difficult~\cite{ericson2015analysis}.
 An alternative involves visually grouping distractors with their correct alternative.
 When each group includes a single correct block and a single distractor this is commonly
-refered to as ``visually paired distractors''~\cite{} whereas when each correct block
-has more than one distractor associated with it this is refered to as
-``visually grouped''~\cite{}.  The purpose of visually grouping and visually pairing
-is to improve problem efficiency by making the selection between a correct block 
-and its distractors more explicit~\cite{denny2008evaluating}.
+refered to as ``visually paired distractors''~\cite{denny2008evaluating}
+whereas when each correct block has more than one distractor associated we
+refered to this as having ``visually grouped''
+distractors~\cite{smith2023comparing}.  The purpose of visually grouping and
+visually pairing is to improve problem efficiency by making the selection
+between a correct block and its distractors more
+explicit~\cite{denny2008evaluating}.
 
 Beyond the method by which distractors are included 
 recent work has investigated the utility of adaptive Parsons, where, 
@@ -401,8 +409,9 @@ create questions and students' efficiency in answering them~\cite{vyas2008multip
 Once distractors are created and administered to students their quality can be
 assessed in a variety of ways. First, the item can be taken as a whole and its
 discrimination and difficulty can be calculated~\cite{mahjabeen2017difficulty}.
-Distractors can then be assessed individually to identify and remove ones that are
-selected significantly less than their counterparts or not at all~\cite{tarrant2009assessment}.  Furthermore, a process known as
+Distractors can then be assessed individually to identify and remove ones that
+are selected significantly less than their counterparts or not at
+all~\cite{tarrant2009assessment}.  Furthermore, a process known as
 ``Differential Distractor Functioning'' can be used to identify if any
 subpopulations are being unfairly disadvantaged by the presence of certain
 distractors~\cite{green1989method}.
@@ -421,7 +430,7 @@ are when used in exam questions and what the best practices are for creating
 distractors.
 
 
-\subsection{Classical Test Theory and IRT}
+\subsection{Classical Test Theory and Item Response Theory}
 
 One of the key methods of evaluating an exam's quality is test reliability,
 commonly calculated using Cronbach's Alpha~\cite{cronbach1951coefficient}
@@ -477,7 +486,19 @@ are often recommended to increase the possible range of scores the item can
 produce~\cite{lord1953application, ebel1972essentials, hotiu2006relationship}.
 %, though this does vary based on the item type and scoring method TODO: double check this statement with the above citations.
 
+% TODO: Explain what IRT is and what it does that CTT doesn't
+
+% Quick explaination on the varieties of IRT
+
 \section{Prior Work}
+
+This section covers the work that I have already completed related to
+distractors and Parsons problems. Section~\ref{sec:creation} covers the
+creation of a methodology and tool for creating distractors, a pilot study
+investigating the impact of distractors on summative assessments.
+Section~\ref{sec:parsons} covers a series of studies comparing the impacts of
+Parsons problems that include: (1) no distractors, (2) jumbled distractors, and
+(3) visually grouped distractors.
 
 \subsection{Creation of Distractors and Pilot Study}\label{sec:creation}
 
@@ -489,8 +510,8 @@ the selection and use of distractors in Parsons problems. First, we demonstrate
 a process by which templates for creating distractors can be selected through
 the analysis of student submissions to short answer questions. Second, we
 describe the creation of a tool that uses these templates to automatically
-generate distractors for novel problems. Third, we perform a preliminary
-analysis of how the presence of distractors in Parsons problems being used on
+generate distractors for novel problems. Third, we performed a pilot study
+evaluating how the presence of distractors in Parsons problems being used on
 summative assessments impacts: (1) performance, (2) the amount of time students
 spend working on the problems, and (3) item quality as measured through
 Classical Test Theory's operationalization of item-discrimination.
@@ -561,21 +582,166 @@ distractors and the other did not. These questions were then randomly assigned t
 students on a final exam in a large, introductory Python course.  We then
 evaluated these items using the following metrics: 
 \begin{enumerate}
-  \item \textbf{Item-Discrimination:}
-  \item \textbf{Item-Difficulty:}
-  \item \textbf{Duration:}
+    \item \textit{Performance}: Students were allowed three attempts. On each of these attempts, students could earn a maximum of 6, 3, and 1 point respectively. Partial credit within these attempts was calculated using an edit distance approach introduced by \citet{poulsen2022efficient}.
+    \item \textit{Duration}: This was calculated as the number of seconds a student spent viewing a question during an exam regardless of whether or not they arrived at a correct response.
+    \item \textit{Item Discrimination}: In keeping with the standards of Classical Test Theory, we calculate item discrimination as the Pearson's Correlation between item score and exam score.~\footnote{Multiple choice and true-false questions were omitted from the calculation of total-score as those questions cover topics relating to general computing knowledge rather than programming and show only a modest correlation to those elements of the exam related to programming (e.g., code-writing, tracing)}
 \end{enumerate}
+Mann-Whitney U tests were used to compare the distractor and non-distractor
+versions of each item on each of these metrics.
 
 \paragraph{Results and Takeaways:}
 
+% Summary of results
+The results of the pilot study indicate that the questions with distractors
+took significantly longer to complete across all three pairs of questions with
+a low to moderate effect size ($d$=0.17-0.42). Of the three pairs of questions,
+only one showed a significant difference in performance with the distractor
+versions of the questions being more difficult (Table~\ref{}).  As for item
+discrimination, both questions with and without distractors showed high
+correlations with the exam score well above the generally accepted threshold of
+0.4 which is often used to define a ``good'' item~\cite{matlock1997basic}. The
+inclusion of distractors did not appear to lead to an increase or decrease in
+item discrimination that would be considered practically significant.
 
-\subsection{Evaluating Distractors}\label{sec:eval}
+% Summary of takeaways
+Overall, the results of this pilot study draws into question the utility of
+including jumbled distractors in Parsons problems on summative assessments.
+If the intention of the summative assessment in questions is to reliably
+discriminate between high and low performing students the results presented
+suggest that the inclusion of jumbled distractors does little to help this
+endeavor. In particular, given the large increase in duration seen for the 
+distractor versions of the questions, increasing the reliability of the
+assessment by including additional Parsons problems which do not include
+distractors may be a more effective approach.  However, given this was a pilot
+study which included only a small number of questions, these findings motivate
+our subsequent, larger scale evaluations of the utility of distractors in
+Parsons problems on summative assessments.
 
-\paragraph{Abstract:} Since the creation of the tool for 
 
-\paragraph{Methodology:}
+
+\subsection{Evaluating Distractors}\label{sec:parsons}
+
+\paragraph{Abstract:} Since the project described in the previous section we
+have performed a number of follow up studies aimed at evaluating the impacts of
+including distractors on Parsons problems in summative assessments.  The first
+of these, conducted in the Fall of 2021, was a replication of  the pilot study
+described in the previous section which took place over the course of a full
+semester~\cite{smith2023investigating}. And extension of this work was then
+conducted in the Spring of 2022 in which we evaluated the impacts of including
+visually grouped distractors on Parsons problems~\cite{smith2023comparing}. 
+
+\paragraph{Methodology:} This study involves a between-subjects, randomized
+experiment. Students in the Fall 2022 semester ($n=576$) were randomly assigned
+to one of two conditions: jumbled distractors (JD) or no distractors (ND).
+Students in the Spring 2023 semester ($n=456$) were randomly assigned to either
+the visually grouped distractors (GD) or no distractors (ND) condition. The
+interface for ND, JD, and GD conditions are shown in
+Figure~\ref{fig:interface}.  In both semesters, the ND questions were kept
+largely the same and students performance on those questions did not differ
+significantly between the two semesters (t=-1.63, p>0.05). This supports
+the assumption that the two semesters were comparable in terms of student
+performance.
+
+
+% What was the assessment structure
+Each semester included four quizzes and four exams which were unproctored and
+proctored, respectively. All quizzes and exams were computer-based, with
+quizzes taken on the students' own devices and exams by scheduling a time in a
+proctored computer lab~\cite{zilles2019every}. In each semester, 32 question
+pairs were used in the exams, and the questions not containing distractors were
+kept largely identical throughout both semesters with the exception of two
+items pairs which were replaced. 
+
+For determining the impact of including visually grouped and jumbled
+distractors on performance and duration, we fit a Multi-Level Model
+(MLM)~\cite{snijders2011multilevel}. The purpose of using this modeling
+approach compared to a more standard linear regression is to help account for
+variance that might occur within the conditions (ND, JD, GD) and within student
+performance. Importantly, MLM allows us capture the unobserved variance in the
+conditions independent of unobserved variance in student performance, thereby
+allowing us to better model when outcomes are more impacted by student
+performance or by question.
+
+
+% First regression - What is the impact of JD and GD relative to no distractors
+\noindent \paragraph{Regression Form 1 - Comparing No Distractors to Each Distractor Condition:}
+The first regression form is used to determine the impacts of including visually grouped  
+and jumbled distractors relative to not including distractors. We fit the
+following pair of MLMs.
+\begin{align*}
+  \text{Performance}_{ij} = \beta_0 +  \beta_1\text{Condition}_{ij} + \beta_{2i}\text{S}_{i} + \text{Q}_{j} + \epsilon_{ij}\\
+  \text{Duration}_{ij} = \beta_0 + \beta_1\text{Condition}_{ij} + \beta_{2i}\text{S}_{i} + \text{Q}_{j} + \epsilon_{ij} 
+\end{align*}
+Here, $\text{Performance}_{ij}$ and $\text{Duration}_{ij}$ are the performance
+and duration of student $i$ on question $j$, respectively.
+$\text{Condition}_{ij}$ is the condition student $i$ was assigned to for
+question $j$ (i.e., ND, JD, GD). $\text{S}_{i}$ is included as a fixed effect
+to control for student ability on Parsons problems. $\text{Q}_{j}$ is included
+as a random effect to control for question properties (i.e. average performance
+or duration on a given question) and to help quantify how much variance in the
+model comes from variance between questions versus variance between student
+performance within a question.  $\epsilon_{ij}$ is the error term for student
+$i$ on question $j$.  Of the coefficients that result from these regressions,
+ones that are pertinant to the results are the intercept ($\beta_0$) which is
+the average for a given outcome on the ND condition and $\beta_1$ which is
+average outcome for each of the remaining two conditions relative to the
+intercept. 
+
+\noindent\paragraph{Regression Form 2 - Comparing JD to GD}
+To directly compare the impacts of visually grouped and jumbled distractors we fit 
+the following second pair of MLMs.
+\begin{align*}
+  \text{Performance}_{ij} = \beta_0 + \beta_1\text{Distractor}_{ij} + \beta_2\text{Grouped}_{ij} + \beta_{3i}\text{S}_{i} + \text{Q}_{j} + \epsilon_{ij}\\
+  \text{Duration}_{ij} = \beta_0 + \beta_1\text{Distractor}_{ij} + \beta_2\text{Grouped}_{ij} + \beta_{3i}\text{S}_{i} + \text{Q}_{j} + \epsilon_{ij} 
+\end{align*}
+In this model the $\text{Condition}_{ij}$ predictor is replaced with two binary
+predictors, $\text{Distractor}_{ij}$ and $\text{Grouped}_{ij}$  indicating if
+question $j$ contains distractors and if those distractors are grouped. We
+choose to run this second set of models for a more fine-grained comparison,
+even though the models are functionally equivalent to the first set. In
+particular, reconfiguring the model in this fashion allows us to directly
+compare the impact of the JD and GD conditions, as opposed to comparing them
+against ND, enabling us to observe whether the differences between the GD and
+JD condition are statistically significant. 
+
+For item-discrimination, we compare the relative impact of including
+distractors for each item pair. A Shapiro-Wilks test was used to determine the
+normality of the item discrimination distributions ( JD: \textcolor{red}{GET
+STATS}; ND-Fall: \textcolor{red}{GET STATS}; ND-Spring: \textcolor{red}{GET
+STATS}; GD: \textcolor{red}{GET STATS}.  As the majority of these tests
+indicate normally distributed data, we select a parametric test, the paired
+t-test, to determine if there was a significant difference in overall item
+discrimination between ND and JD in the Fall and ND and GD in the Spring.  
 
 \paragraph{Results and Takeaways:}
+
+\begin{figure*}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=\textwidth]{./imgs/score_dif.pdf}
+    \caption{Item Score Comparison}
+    \label{fig:score_dif}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=\textwidth]{./imgs/dur_dif.pdf}
+    \caption{Item Duration Comparison}
+    \label{fig:dur_dif}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}[b]{0.30\textwidth}
+    \includegraphics[width=\textwidth]{./imgs/discrim_dif.pdf}
+    \caption{Discrimination Comparison}
+    \label{fig:discrim_dif}
+  \end{subfigure}
+  \caption{The item pairs are displayed with the difference in score (Figure~\ref{fig:score_dif}), duration
+  (Figure~\ref{fig:dur_dif}), and
+  item-discrimination (Figure~\ref{fig:discrim_dif}) between the two items on
+  the x axis. This is calculated by subtracting the given measure for the item containing
+  distractors (i.e., JD, GD) from the measure of the item not containing
+  distractors (ND).}
+\end{figure*}
+
+
 
 \section{Limitations of Prior Work}
 
@@ -617,8 +783,8 @@ In addressing the limitations of the completed work, we propose three research
 directions:
 \begin{enumerate}
   \item[RD1)] Developing a more complete taxonomy of distractors from errors
-    students make on statement questions \textbf{and} write code question in support of
-    RD1 and RD2 (Section~\ref{sec:taxonomy}).
+    students make on write code question in support of RD2 and RD3
+    (Section~\ref{sec:taxonomy}).
   \item[RD2)] A larger study, over multiple semesters, on the impact of distractors on the psychometric
     properties of Parsons problems as exam items (Section~\ref{sec:itemquality}).
   \item[RD3)] Investigating the impact of distractors on learning outcomes in a
@@ -628,25 +794,46 @@ Each of these proposed directions.
 
 \subsubsection{RD1) Building a Taxonomy of Distractors for Python}\label{sec:taxonomy}
 
+\paragraph{Overview:} 
+
+% Overall goal
 This proposed work stems from the prior work initially described in
-Section~\ref{sec:creation}. We will extend the analysis performed on statement questions to
-include errors and categories of errors students make on code writing activities
-in order to create a more complete set of distractors from which a more
-generalized taxonomy will be built. 
+Section~\ref{sec:creation}. We will extend the analysis performed on statement
+questions to include errors and categories of errors students make on code
+writing activities in order to create a more complete set of distractors from
+which a more generalized taxonomy will be built.  
 
-\paragraph{Methodology:} In the introductory programming course from which
-the data for the first paper detailed in \ref{sec:creation} was attained
-we have a variety large quantity of historical data. Though in that analysis
-we focused on collecting data from ``statement questions'' we also have a wide
-variety 
+% The data we are looking at
+In the introductory programming course from which the data for the first paper
+detailed in Section~\ref{sec:creation} was attained we have a variety large
+quantity of historical data. Though in that analysis we focused on collecting
+errors from historical responses to ``statement questions'', the course in
+questions also has a wide variety of code writing and code fixing problems.
+These problems typically involve writing or fixing a single function,
+respectively. 
 
-\paragraph{Expected Outcomes:} The primary deliverable of this study will be
+\paragraph{Methodology:} This process would involve an extension to the
+distractor discovery process covered in Section~\ref{sec:creation}. Historical
+data for code writing and code fixing questions would be manually analyzed to
+identify sets of errors that students make while writing programs and errors
+they struggle to correct, respectively. In achieving this goal, a static 
+analysis tool would be created to classify and identify the prevalence of 
+these errors. These errors would be roughly categorized into: (1) conditional
+structure errors, (2) boolean expression errors, (3) function definition
+errors, (4) looping errors. Though, further categories may be added as 
+the analysis unfolds. 
+
+\paragraph{Expected Outcomes and Timeline:} The primary deliverable of this study will be
 the taxonomy and bank of common errors itself. The utility of this is twofold.
 First, it can be used as a guidebook for question authoring. Second, it can be
-used in future anlaysis of distractors to guide how they can be used in
-summative and formative contexts alike.
-
-\paragraph{Timeline:} 
+used in future analysis of distractors to guide how they can be used in
+summative and formative contexts alike. With respect to summative assessments,
+this may take the form of identifying which distractors lead to the greatest
+increase in item-discrimination and item-difficulty. As for formative
+assessments, future investigations could identify which categories of
+distractors are most effective for learning when used in a formative context.
+Having completed similar analysis before, I anticipate the construction of the
+static analysis tool would take approximately a semester to complete.
 
 
 \subsubsection{RD2) Investigating the Impact of Distractors on Learning Outcomes in CS1}\label{sec:impact}}
@@ -659,16 +846,68 @@ additionally include a series of interviews with students completing the
 problems to determine if the distractors provide any additional benefit to the
 students beyond potential learning gains. 
 
-\paragraph{Methodology:} In answering the research questions above we use a mixed 
-methods approach.
-To evaluate the research questions listed above we ran 
-and A-B comparing the learning gains of students practicing with and without distractors.
-In both conditions students began by completing a short reading on a topic they had 
-not encountered in the course, in this case Pythons sorting functions. They then
-completed a survey on their familiarity with the functions they read about prior
-to completing the reading. 
+\paragraph{Methodology:} In answering the research questions above we use a
+mixed methods approach. \textcolor{red}{}
 
-\paragraph{Expected Outcomes:} 
+% The quantitative portion
+To evaluate the research questions listed above we ran and A-B comparing the
+learning gains of students practicing with and without distractors.  In both
+conditions students began by completing a short reading on a topic they had not
+encountered in the course, in this case Pythons sorting functions:
+\texttt{list.sort()} and \texttt{sorted()}.  They then completed a survey on
+their familiarity with the functions they read about prior to completing the
+reading.  Students were then randomly assigned to one of two groups for
+practicing the concepts with Parsons problems. One group included problems
+which contained distractors and the other had problems which did not.  Each
+group completed a total of fourteen problems, seven for each of the two
+functions which were taught in the reading. After completing the practice
+activity students were given a post test consisting of the following problem
+types:
+\begin{itemize}
+  \item \textbf{Statement Questions}: Two statement problems were given, one for each function, and students were asked to write a single line of code which sorted a given list.
+  \item \textbf{Error Identification and Explanation:} Students were shown a piece of code and asked to (1) identify if the code had an error with respect to how it was sorting the function or manipulating the sorted list and (2) explain the error.
+  \item \textbf{Code Writing:} Students were given a task that required the sorting of a list and asked to write a function that accomplished that task.
+  \item \textbf{Code Fixing:} Students were given a function that contained errors in how a function was sorting a list and asked to correct the function so it performed the task specified by the prompt.
+\end{itemize}
+A week later, students were invited back for a retention test containing the
+same problem types.
+
+% The qualitative portion.
+To evaluate students problem solving approaches and perceptions of questions 
+that include distractors we designed another learning activity similar to that
+used for the A-B study. Here, student were asked to complete a short reading about
+the \texttt{dict.items()} function. They then completed fourteen Parsons problems 
+as a practice activity, seven of which contained distractors and the other seven
+which did not. These questions were interleaved and arranged according to their
+complexity. Students were asked to think aloud while solving the Parsons
+problems and then, upon completing the exercises asked a series of reflection questions:
+\begin{enumerate}
+  \item Whare are your general thoughts in comparing the questions that did and did not include distractors?
+  \item How would you compare the two types of Parsons problems in terms of difficulty?
+  \item How would you compare the two types of Parsons problems in terms of their value for learning? For instance which would you prefer to practice with when encountering a new concept and why?
+  \item Whare are your thoughts on the feedback you encountered when you selected a distractor?
+\end{enumerate}
+They were then asked to complete a series of error identification, code
+writing, and code fixing questions while thinking aloud. The purpose of this
+being to see if and how students reflected on the practice activities when
+applying what they learned to other questions. Upon completing those questions
+they were then asked a single follow up question: \textcolor{red}{Question
+here}. Once these interviews are completed they will then be automatically
+transcribed, reviewed, and corrected. Two researchers will develop a codebook
+though an inductive coding approach and interrater reliability will be
+determined though the use of a third, external coder.
+
+\paragraph{Expected Outcomes:} The purpose of this study is to replicate and
+extend the findings of the 2023 ITiCSE working group which found that practice
+with distractors had a significant impact on students ability to fix
+code~\cite{ericson2023multi}. This study bears three notable differences from
+that study: (1) our distractors have a feedback mechanism which explains why a
+distractor block is incorrect, (2) we add an additional question type to the
+post tests which evaluates a student's ability to identify and explain an
+error, and (3) we perform a larger qualitative analysis to identify
+\textit{why} any learning gains we observe might be occurring. In doing so, we
+aim to identify the impacts of distractors on learning and provide guidance on
+the design and delivery of such questions.
 
 \paragraph{Timeline:} The data collection for the quantitative portion of this
 study has already been completed and had undergone preliminary analysis. Several 
@@ -678,13 +917,13 @@ targeting ICER 2024 for the publication of this work.
 \subsubsection{RD3) An Extended Analysis of the Impact of Distractors on Exam Items }\label{sec:itemquality}
 
 The third and final research direction (Section~\ref{itemquality}) will
-invovle a long term continuation of the work described in Section~\ref{eval}.
+involve a long term continuation of the work described in Section~\ref{eval}.
 A core limitation of this prior work is there are a number of ways in which 
-distractors can be inlcuded in an exam item. For example, multiple groups 
+distractors can be included in an exam item. For example, multiple groups 
 of visually grouped distractors can be included in a single item, the number 
 of distractors per group can be varied, and there are a variety of distractor 
 types which can be included. This research direction will involve the development
-of a wide variety of Parsons problems with these parameters varied and anlaysing
+of a wide variety of Parsons problems with these parameters varied and analysing
 the impact of these parameters on the quality of the exam items.
 
 \paragraph{Methodology:} In the Fall 2023 semester we repeated the experiments
@@ -707,10 +946,10 @@ effort to collect a large and diverse set of problems.
 is that it didn't pay sufficient attention to how the number of distractor 
 groups in the problem may impact the difficulty, discrimination, and duration
 statistics associated with the problem. The majority of questions from those 
-analysis's 
+analysis's involved blocks which contained distractors for blocks 
 
 \paragraph{Current Progress and Timeline:} 
-An initial anlaysis of the Fall 2023 data has been analyzed and submitted to
+An initial analysis of the Fall 2023 data has been analyzed and submitted to
 ITiCSE 2024. The full analysis will include a replication of these initial
 findings and a more indepth analysis of which distractors were the most
 ``distracting'' and how these item statistics differ for items included on
